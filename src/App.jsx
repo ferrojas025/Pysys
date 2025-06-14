@@ -328,7 +328,7 @@ function App() {
               <Button 
                 size="lg" 
                 className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-4 text-lg rounded-full pulse-glow transform hover:scale-105 transition-all duration-300"
-                onClick={() => window.open('https://t.me/pyher_bot', '_blank')}
+                onClick={() => window.open('https://t.me/PySisBot', '_blank')}
               >
                 <MessageCircle className="w-5 h-5 mr-2" />
                 Hablar con PySis
@@ -551,7 +551,7 @@ function App() {
               <Button 
                 size="lg" 
                 className="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white px-8 py-4 text-lg rounded-full pulse-glow transform hover:scale-105 transition-all duration-300"
-                onClick={() => window.open('https://t.me/pyher_bot', '_blank')}
+                onClick={() => window.open('https://t.me/PySisBot', '_blank')}
               >
                 <Bot className="w-5 h-5 mr-2" />
                 Comenzar Ahora
@@ -686,7 +686,7 @@ function App() {
             <Button 
               variant="ghost" 
               className="text-purple-200 hover:text-white hover:bg-purple-800/50"
-              onClick={() => window.open('https://t.me/pyher_bot', '_blank')}
+              onClick={() => window.open('https://t.me/PySisBot', '_blank')}
             >
               <MessageCircle className="w-5 h-5 mr-2" />
               Telegram
