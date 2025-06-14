@@ -46,10 +46,10 @@ function App() {
 
 
   const nivelAvanceData = [
-    { name: "Inicio (Día 1–3)", value: 40 },
-    { name: "Exploración (Día 4–10)", value: 32 },
-    { name: "Progreso (Día 11–20)", value: 18 },
-    { name: "Maestría (Día 21–30)", value: 10 }
+    { name: "Día 1–3", value: 40 },
+    { name: "Día 4–10", value: 32 },
+    { name: "Día 11–20", value: 18 },
+    { name: "Día 21–30", value: 10 }
   ];
   const COLORS_NIVEL_AVANCE = ['#6A329F', '#8E44AD', '#BB8FCE', '#D2B4DE']; 
 
