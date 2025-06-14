@@ -1,13 +1,17 @@
+
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Toaster } from '@/components/ui/toaster';
 import Ranking from '@/components/Ranking'; 
 
+
 import {
   ResponsiveContainer,
   PieChart,
   Pie,
+  BarChart,
+  Bar,      
   LineChart,
   Line,
   XAxis,
@@ -31,7 +35,7 @@ import {
   Clock,
   Award,
   X, 
-  Zap,
+  Zap, 
   Link,
 } from 'lucide-react';
 
@@ -47,15 +51,19 @@ function App() {
     { name: "Progreso (Día 11–20)", value: 18 },
     { name: "Maestría (Día 21–30)", value: 10 }
   ];
+
   const COLORS_NIVEL_AVANCE = ['#8884d8', '#82ca9d', '#ffc658', '#ff8042']; 
+
 
   const constanciaData = [
     { name: "Constantes", value: 62 },
     { name: "Irregulares", value: 38 }
   ];
+
   const COLORS_CONSTANCIA = ['#4CAF50', '#FF5733']; 
 
   const aprendicesActivasHoy = 112; 
+
 
   const conexionesData = [
     { semana: "Semana 1", conexiones: 5 },
@@ -79,6 +87,7 @@ function App() {
       avatarUrl: 'Mentora_aleja.png', 
       description: 'Alejandra es Ingeniera de Machine Learning y AI, y estudiante de maestría en Inteligencia Artificial. Le apasiona enseñar, compartir conocimiento y aplicar la inteligencia artificial para generar un impacto positivo en el mundo real. Su enfoque combina el desarrollo técnico con un fuerte compromiso por la ética y la transformación social a través de la tecnología, es fundadora de PySys.'
     },
+
   ];
 
   const openMentorModal = (mentor) => {
@@ -91,6 +100,7 @@ function App() {
     setSelectedMentor(null);
   };
 
+
   const handleSubmitMentorForm = (e) => {
     e.preventDefault();
     console.log("Formulario de mentora enviado:");
@@ -98,6 +108,7 @@ function App() {
     console.log("Correo electrónico:", e.target[1].value);
     console.log("Descripción:", e.target[2].value);
     console.log("Perfil público:", isPublicProfile);
+
     e.target.reset(); 
     setIsPublicProfile(false); 
   };
@@ -118,12 +129,13 @@ function App() {
               className="flex items-center space-x-3"
               whileHover={{ scale: 1.05 }}
             >
-              {/* Logo de PySys */}
+
               <img src="/logoPySys.png" alt="PySys Logo" className="w-10 h-10 rounded-full" />
               <span className="text-2xl font-bold text-gray-900">PySys</span>
             </motion.div>
             
             <div className="hidden md:flex space-x-8">
+
               {['Inicio', 'Sobre Nosotros', 'Ranking', 'Estadísticas', 'Conexiones'].map((item, idx) => (
                 <button
                   key={idx}
@@ -139,7 +151,7 @@ function App() {
           </div>
         </div>
       </motion.nav>
- 
+
       <section id="inicio" className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50 pt-20">
         <div className="container mx-auto px-6 text-center">
           <motion.div
@@ -211,7 +223,7 @@ function App() {
       </section>
  
       <div className="section-divider"></div>
- 
+
       <section id="sobrenosotros" className="py-20 bg-white">
         <div className="container mx-auto px-6">
           <motion.div
@@ -317,6 +329,7 @@ function App() {
  
       <div className="section-divider"></div>
       
+
       <Ranking /> 
  
       <div className="section-divider"></div>
@@ -351,25 +364,19 @@ function App() {
                 Distribución por nivel de avance
               </h3>
               <ResponsiveContainer width="100%" height={300}>
-                <PieChart>
-                  <Pie
-                    data={nivelAvanceData}
-                    dataKey="value"
-                    nameKey="name"
-                    cx="50%"
-                    cy="50%"
-                    outerRadius={100}
-                    fill="#8884d8"
-                    labelLine={false}
-                    label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-                  >
-                    {nivelAvanceData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={COLORS_NIVEL_AVANCE[index % COLORS_NIVEL_AVANCE.length]} />
-                    ))}
-                  </Pie>
+                <BarChart data={nivelAvanceData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                  <XAxis dataKey="name" stroke="#555" />
+                  <YAxis stroke="#555" />
                   <Tooltip />
                   <Legend />
-                </PieChart>
+                  <Bar dataKey="value" fill="#8884d8">
+                    {
+                      nivelAvanceData.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={COLORS_NIVEL_AVANCE[index % COLORS_NIVEL_AVANCE.length]} />
+                      ))
+                    }
+                  </Bar>
+                </BarChart>
               </ResponsiveContainer>
             </motion.div>
             
@@ -392,7 +399,7 @@ function App() {
                     nameKey="name"
                     cx="50%"
                     cy="50%"
-                    innerRadius={60}
+                    innerRadius={60} 
                     outerRadius={100}
                     fill="#82ca9d"
                     labelLine={false}
@@ -590,7 +597,7 @@ function App() {
           </div>
         </div>
       </section>
-
+ 
       <footer className="bg-gradient-to-r from-purple-900 to-blue-900 py-12">
         <div className="container mx-auto px-6 text-center">
           <div className="flex items-center justify-center space-x-3 mb-6">
@@ -642,11 +649,11 @@ function App() {
             </button>
             <div className="flex flex-col items-center mb-6">
               <img 
-                src={selectedMentor.avatarUrl || "https://placehold.co/128x128/cccccc/333333?text=N/A"}
+                src={selectedMentor.avatarUrl || "https://placehold.co/128x128/cccccc/333333?text=N/A"} 
                 alt={selectedMentor.name} 
                 className="w-32 h-32 rounded-full object-cover mb-4 shadow-md border-2 border-gray-200"
                 loading="lazy" 
-                onError={(e) => { e.target.onerror = null; e.target.src="https://placehold.co/128x128/cccccc/333333?text=N/A"; }}
+                onError={(e) => { e.target.onerror = null; e.target.src="https://placehold.co/128x128/cccccc/333333?text=N/A"; }} 
               />
               <h3 className="text-3xl font-bold text-gray-900 text-center mb-2">
                 {selectedMentor.name.split('(')[0].trim()}
