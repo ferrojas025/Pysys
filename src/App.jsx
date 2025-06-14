@@ -1,4 +1,3 @@
-// src/App.jsx
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
@@ -46,10 +45,10 @@ function App() {
 
 
   const nivelAvanceData = [
-    { name: "Día 1–3", value: 40 },
-    { name: "Día 4–10", value: 32 },
-    { name: "Día 11–20", value: 18 },
-    { name: "Día 21–30", value: 10 }
+    { name: "Inicio (Día 1–3)", value: 40 },
+    { name: "Exploración (Día 4–10)", value: 32 },
+    { name: "Progreso (Día 11–20)", value: 18 },
+    { name: "Maestría (Día 21–30)", value: 10 }
   ];
   const COLORS_NIVEL_AVANCE = ['#6A329F', '#8E44AD', '#BB8FCE', '#D2B4DE']; 
 
@@ -127,7 +126,7 @@ function App() {
             </motion.div>
             
             <div className="hidden md:flex space-x-8">
-              {['Inicio', 'Sobre Nosotros', 'Ranking', 'Estadísticas', 'Conexiones'].map((item, idx) => (
+              {['Inicio', 'Sobre Nosotros', 'Qué es Tyzy?', 'Ranking', 'Estadísticas', 'Conexiones'].map((item, idx) => (
                 <button
                   key={idx}
                   onClick={() => scrollToSection(item.toLowerCase().replace(/\s+/g, ''))}
@@ -279,7 +278,7 @@ function App() {
               <div className="bg-white/70 backdrop-blur-md p-6 rounded-xl text-center shadow-lg">
                 <Award className="w-12 h-12 text-purple-500 mx-auto mb-4" />
                 <span className="text-2xl font-bold text-gray-900 block">95%</span>
-                <span className="text-gray-600">Satisfacción</span>
+                <span className="text-600">Satisfacción</span>
               </div>
             </motion.div>
           </div>
@@ -317,10 +316,44 @@ function App() {
           </motion.div>
         </div>
       </section>
- 
+
+      <div className="section-divider"></div>
+
+      {/* Nueva Sección: ¿Qué es Tyzy? */}
+      <section id="queestyzy" className="py-20 bg-gradient-to-br from-pink-50 to-purple-50">
+        <div className="container mx-auto px-6 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="max-w-3xl mx-auto bg-white/70 backdrop-blur-md p-8 rounded-2xl shadow-lg"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+              🌸 ¿Qué es Tyzy?
+            </h2>
+            <p className="text-lg text-gray-700 mb-6 leading-relaxed">
+              Tyzy, en el lenguaje muisca, significa persona amada.
+            </p>
+            <p className="text-lg text-gray-700 mb-6 leading-relaxed">
+              Y eso es exactamente lo que queremos que sientas: que eres valiosa, bienvenida y profundamente apreciada.
+            </p>
+            <p className="text-lg text-gray-700 mb-6 leading-relaxed">
+              Para nosotras, cada futura programadora que llega aquí no es solo una estudiante… es una Tyzy, una parte esencial de esta comunidad que sueña con transformar el mundo con tecnología y ternura.
+            </p>
+            <p className="text-lg text-gray-700 leading-relaxed">
+              Pero Tyzy no es solo un nombre bonito. Es una filosofía. Un recordatorio constante de que tu historia, tu voz y tu crecimiento importan.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+      
       <div className="section-divider"></div>
       
-      <Ranking /> 
+      {/* Wrapper div para el componente Ranking con su ID */}
+      <div id="ranking"> 
+        <Ranking /> 
+      </div>
  
       <div className="section-divider"></div>
  
@@ -355,10 +388,10 @@ function App() {
               </h3>
               <ResponsiveContainer width="100%" height={300}>
                 <BarChart data={nivelAvanceData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-                  <XAxis dataKey="name" stroke="#555" angle={-30} textAnchor="end" height={60} /> 
+                  <XAxis dataKey="name" stroke="#555" angle={-30} textAnchor="end" height={60} interval={0} /> 
                   <YAxis stroke="#555" />
                   <Tooltip 
-                    formatter={(value, name, props) => [`${value}`, 'Tyzys']} 
+                    formatter={(value) => [`Tyzys: ${value}`]} 
                     labelFormatter={(label) => label} 
                   />
                   <Legend />
@@ -403,7 +436,7 @@ function App() {
                     ))}
                   </Pie>
                   <Tooltip 
-                    formatter={(value) => `${value} tyzys`} 
+                    formatter={(value) => [`${value}%`, 'Porcentaje']} 
                   /> 
                   <Legend />
                 </PieChart>
@@ -449,7 +482,7 @@ function App() {
                 <LineChart data={conexionesData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                   <XAxis dataKey="semana" stroke="#555" />
                   <YAxis stroke="#555" />
-                  <Tooltip formatter={(value) => [`${value}`, 'Tyzys']} /> 
+                  <Tooltip formatter={(value) => [`Tyzys: ${value}`]} /> 
                   <Legend />
                   <Line type="monotone" dataKey="conexiones" stroke="#6A329F" activeDot={{ r: 8 }} strokeWidth={2} />
                 </LineChart>
