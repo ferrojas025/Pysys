@@ -47,17 +47,17 @@ function App() {
 
   const nivelAvanceData = [
     { name: "Inicio (Día 1–3)", T: 40 },
-    { name: "Exploración (Día 4–10)", Tyzys: 32 },
-    { name: "Progreso (Día 11–20)", Tyzys: 18 },
-    { name: "Maestría (Día 21–30)", Tyzys: 10 }
+    { name: "Exploración (Día 4–10)", value: 32 },
+    { name: "Progreso (Día 11–20)", value: 18 },
+    { name: "Maestría (Día 21–30)", value: 10 }
   ];
 
   const COLORS_NIVEL_AVANCE = ['#8884d8', '#82ca9d', '#ffc658', '#ff8042']; 
 
 
   const constanciaData = [
-    { name: "Constantes", Tyzys: 62 },
-    { name: "Irregulares", Tyzys: 38 }
+    { name: "Constantes", value: 62 },
+    { name: "Irregulares", value: 38 }
   ];
 
   const COLORS_CONSTANCIA = ['#4CAF50', '#FF5733']; 
@@ -66,10 +66,10 @@ function App() {
 
 
   const conexionesData = [
-    { semana: "Semana 1", Conexiones: 5 },
-    { semana: "Semana 2", Conexiones: 12 },
-    { semana: "Semana 3", Conexiones: 15 },
-    { semana: "Semana 4", Conexiones: 10 }
+    { semana: "Semana 1", conexiones: 5 },
+    { semana: "Semana 2", conexiones: 12 },
+    { semana: "Semana 3", conexiones: 15 },
+    { semana: "Semana 4", conexiones: 10 }
   ];
 
   const scrollToSection = (sectionId) => {
