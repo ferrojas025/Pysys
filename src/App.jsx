@@ -1,16 +1,14 @@
-
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Toaster } from '@/components/ui/toaster';
 import Ranking from '@/components/Ranking'; 
 
-
 import {
   ResponsiveContainer,
   PieChart,
   Pie,
-  BarChart,
+  BarChart, 
   Bar,      
   LineChart,
   Line,
@@ -36,7 +34,7 @@ import {
   Award,
   X, 
   Zap, 
-  Link,
+  Link, 
 } from 'lucide-react';
 
 function App() {
@@ -46,21 +44,18 @@ function App() {
   const [isPublicProfile, setIsPublicProfile] = useState(false);
 
   const nivelAvanceData = [
-    { name: "Inicio (Día 1–3)", T: 40 },
+    { name: "Inicio (Día 1–3)", value: 40 },
     { name: "Exploración (Día 4–10)", value: 32 },
     { name: "Progreso (Día 11–20)", value: 18 },
     { name: "Maestría (Día 21–30)", value: 10 }
   ];
-
-  const COLORS_NIVEL_AVANCE = ['#8884d8', '#82ca9d', '#ffc658', '#ff8042']; 
-
+  const COLORS_NIVEL_AVANCE = ['#6A329F', '#8E44AD', '#BB8FCE', '#D2B4DE']; 
 
   const constanciaData = [
     { name: "Constantes", value: 62 },
     { name: "Irregulares", value: 38 }
   ];
-
-  const COLORS_CONSTANCIA = ['#4CAF50', '#FF5733']; 
+  const COLORS_CONSTANCIA = ['#6A329F', '#9B59B6']; 
 
   const aprendicesActivasHoy = 112; 
 
@@ -100,7 +95,6 @@ function App() {
     setSelectedMentor(null);
   };
 
-
   const handleSubmitMentorForm = (e) => {
     e.preventDefault();
     console.log("Formulario de mentora enviado:");
@@ -108,7 +102,6 @@ function App() {
     console.log("Correo electrónico:", e.target[1].value);
     console.log("Descripción:", e.target[2].value);
     console.log("Perfil público:", isPublicProfile);
-
     e.target.reset(); 
     setIsPublicProfile(false); 
   };
@@ -129,13 +122,11 @@ function App() {
               className="flex items-center space-x-3"
               whileHover={{ scale: 1.05 }}
             >
-
               <img src="/logoPySys.png" alt="PySys Logo" className="w-10 h-10 rounded-full" />
               <span className="text-2xl font-bold text-gray-900">PySys</span>
             </motion.div>
             
             <div className="hidden md:flex space-x-8">
-
               {['Inicio', 'Sobre Nosotros', 'Ranking', 'Estadísticas', 'Conexiones'].map((item, idx) => (
                 <button
                   key={idx}
@@ -151,7 +142,7 @@ function App() {
           </div>
         </div>
       </motion.nav>
-
+ 
       <section id="inicio" className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50 pt-20">
         <div className="container mx-auto px-6 text-center">
           <motion.div
@@ -223,7 +214,7 @@ function App() {
       </section>
  
       <div className="section-divider"></div>
-
+ 
       <section id="sobrenosotros" className="py-20 bg-white">
         <div className="container mx-auto px-6">
           <motion.div
@@ -329,7 +320,6 @@ function App() {
  
       <div className="section-divider"></div>
       
-
       <Ranking /> 
  
       <div className="section-divider"></div>
@@ -367,9 +357,9 @@ function App() {
                 <BarChart data={nivelAvanceData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                   <XAxis dataKey="name" stroke="#555" />
                   <YAxis stroke="#555" />
-                  <Tooltip />
+                  <Tooltip formatter={(value) => `${value} tyzys`} /> 
                   <Legend />
-                  <Bar dataKey="value" fill="#8884d8">
+                  <Bar dataKey="value" fill="#6A329F"> 
                     {
                       nivelAvanceData.map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={COLORS_NIVEL_AVANCE[index % COLORS_NIVEL_AVANCE.length]} />
@@ -401,7 +391,7 @@ function App() {
                     cy="50%"
                     innerRadius={60} 
                     outerRadius={100}
-                    fill="#82ca9d"
+                    fill="#6A329F" 
                     labelLine={false}
                     label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
                   >
@@ -409,7 +399,7 @@ function App() {
                       <Cell key={`cell-${index}`} fill={COLORS_CONSTANCIA[index % COLORS_CONSTANCIA.length]} />
                     ))}
                   </Pie>
-                  <Tooltip />
+                  <Tooltip formatter={(value) => `${value} tyzys`} /> 
                   <Legend />
                 </PieChart>
               </ResponsiveContainer>
@@ -454,9 +444,9 @@ function App() {
                 <LineChart data={conexionesData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                   <XAxis dataKey="semana" stroke="#555" />
                   <YAxis stroke="#555" />
-                  <Tooltip />
+                  <Tooltip formatter={(value) => `${value} tyzys`} /> 
                   <Legend />
-                  <Line type="monotone" dataKey="conexiones" stroke="#8884d8" activeDot={{ r: 8 }} strokeWidth={2} />
+                  <Line type="monotone" dataKey="conexiones" stroke="#6A329F" activeDot={{ r: 8 }} strokeWidth={2} />
                 </LineChart>
               </ResponsiveContainer>
             </motion.div>
@@ -578,11 +568,11 @@ function App() {
                       onClick={() => openMentorModal(mentor)}
                     >
                       <img
-                        src={mentor.avatarUrl || "https://placehold.co/96x96/cccccc/333333?text=N/A"}
+                        src={mentor.avatarUrl || "https://placehold.co/96x96/cccccc/333333?text=N/A"} 
                         alt={mentor.name}
                         className="w-24 h-24 rounded-full object-cover mb-2 shadow-md border-2 border-gray-200" 
                         loading="lazy"
-                        onError={(e) => { e.target.onerror = null; e.target.src="https://placehold.co/96x96/cccccc/333333?text=N/A"; }}
+                        onError={(e) => { e.target.onerror = null; e.target.src="https://placehold.co/96x96/cccccc/333333?text=N/A"; }} 
                       />
                       <span className="text-center font-semibold text-gray-800 text-sm">
                         {mentor.name.split('(')[0].trim()}
@@ -648,6 +638,7 @@ function App() {
               <X className="w-6 h-6" />
             </button>
             <div className="flex flex-col items-center mb-6">
+
               <img 
                 src={selectedMentor.avatarUrl || "https://placehold.co/128x128/cccccc/333333?text=N/A"} 
                 alt={selectedMentor.name} 
