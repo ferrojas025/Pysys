@@ -4,6 +4,18 @@ import { Button } from '@/components/ui/button';
 import { Toaster } from '@/components/ui/toaster';
 import Ranking from '@/components/Ranking'; 
 
+import {
+  ResponsiveContainer,
+  PieChart,
+  Pie,
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Legend,
+  Cell
+} from 'recharts';
 
 import { 
   Bot, 
@@ -14,176 +26,44 @@ import {
   Code, 
   Star,
   ArrowRight,
-  BarChart3,
+  BarChart3, 
   Target,
   Clock,
   Award,
   X, 
+  Zap,
+  Link,
 } from 'lucide-react';
 
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  LineElement,
-  PointElement,
-  Title,
-  Tooltip,
-  Legend,
-  ArcElement,
-} from 'chart.js';
-import { Bar, Line, Doughnut } from 'react-chartjs-2';
- 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  LineElement,
-  PointElement,
-  Title,
-  Tooltip,
-  Legend,
-  ArcElement
-);
- 
 function App() {
   const [activeSection, setActiveSection] = useState('home');
   const [selectedMentor, setSelectedMentor] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isPublicProfile, setIsPublicProfile] = useState(false);
 
-  const weeklyProgressData = {
-    labels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'],
-    datasets: [
-      {
-        label: 'Estudiantes Activos',
-        data: [45, 52, 48, 61, 55, 67, 73],
-        backgroundColor: 'rgba(102, 126, 234, 0.8)',
-        borderColor: 'rgba(102, 126, 234, 1)',
-        borderWidth: 2,
-        borderRadius: 8,
-      },
-    ],
-  };
- 
-  const learningProgressData = {
-    labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun'],
-    datasets: [
-      {
-        label: 'Lecciones Completadas',
-        data: [120, 190, 300, 500, 720, 890],
-        borderColor: 'rgba(118, 75, 162, 1)',
-        backgroundColor: 'rgba(118, 75, 162, 0.1)',
-        tension: 0.4,
-        fill: true,
-        pointBackgroundColor: 'rgba(118, 75, 162, 1)',
-        pointBorderColor: '#fff',
-        pointBorderWidth: 3,
-        pointRadius: 6,
-      },
-    ],
-  };
- 
-  const topicsData = {
-    labels: ['Variables', 'Funciones', 'Bucles', 'Listas', 'Diccionarios'],
-    datasets: [
-      {
-        data: [25, 20, 18, 22, 15],
-        backgroundColor: [
-          'rgba(102, 126, 234, 0.8)',
-          'rgba(118, 75, 162, 0.8)',
-          'rgba(255, 99, 132, 0.8)',
-          'rgba(54, 162, 235, 0.8)',
-          'rgba(255, 206, 86, 0.8)',
-        ],
-        borderWidth: 0,
-      },
-    ],
-  };
- 
-  const chartOptions = {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        position: 'top',
-        labels: {
-          font: {
-            size: 12,
-            weight: 'bold',
-          },
-          color: '#333',
-        },
-      },
-      tooltip: {
-        callbacks: {
-          label: function(context) {
-            let label = context.dataset.label || '';
-            if (label) {
-              label += ': ';
-            }
-            if (context.parsed.y !== null) {
-              label += context.parsed.y;
-            }
-            return label;
-          }
-        }
-      }
-    },
-    scales: {
-      y: {
-        beginAtZero: true,
-        grid: {
-          color: 'rgba(0, 0, 0, 0.1)',
-        },
-        ticks: {
-          color: '#333',
-        },
-      },
-      x: {
-        grid: {
-          color: 'rgba(0, 0, 0, 0.1)',
-        },
-        ticks: {
-          color: '#333',
-        },
-      },
-    },
-  };
- 
-  const doughnutOptions = {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        position: 'bottom',
-        labels: {
-          font: {
-            size: 12,
-            weight: 'bold',
-          },
-          padding: 20,
-          color: '#333',
-        },
-      },
-      tooltip: {
-        callbacks: {
-          label: function(context) {
-            let label = context.label || '';
-            if (label) {
-              label += ': ';
-            }
-            if (context.parsed !== null) {
-              label += context.parsed;
-            }
-            return label;
-          }
-        }
-      }
-    },
-  };
- 
+  const nivelAvanceData = [
+    { name: "Inicio (Día 1–3)", value: 40 },
+    { name: "Exploración (Día 4–10)", value: 32 },
+    { name: "Progreso (Día 11–20)", value: 18 },
+    { name: "Maestría (Día 21–30)", value: 10 }
+  ];
+  const COLORS_NIVEL_AVANCE = ['#8884d8', '#82ca9d', '#ffc658', '#ff8042']; 
+
+  const constanciaData = [
+    { name: "Constantes", value: 62 },
+    { name: "Irregulares", value: 38 }
+  ];
+  const COLORS_CONSTANCIA = ['#4CAF50', '#FF5733']; 
+
+  const aprendicesActivasHoy = 112; 
+
+  const conexionesData = [
+    { semana: "Semana 1", conexiones: 5 },
+    { semana: "Semana 2", conexiones: 12 },
+    { semana: "Semana 3", conexiones: 15 },
+    { semana: "Semana 4", conexiones: 10 }
+  ];
+
   const scrollToSection = (sectionId) => {
     setActiveSection(sectionId);
     const element = document.getElementById(sectionId);
@@ -192,33 +72,13 @@ function App() {
     }
   };
 
-  const mentors = [
+  const allMentors = [
     {
-      id: 1,
+      id: 'hardcoded-aleja',
       name: 'Alejandra Rojas (Ingeniera de Machine Learning)',
-      avatarUrl: '/Mentora_aleja.png', // Referencia la imagen directamente desde la carpeta public
+      avatarUrl: 'Mentora_aleja.png', 
       description: 'Alejandra es Ingeniera de Machine Learning y AI, y estudiante de maestría en Inteligencia Artificial. Le apasiona enseñar, compartir conocimiento y aplicar la inteligencia artificial para generar un impacto positivo en el mundo real. Su enfoque combina el desarrollo técnico con un fuerte compromiso por la ética y la transformación social a través de la tecnología, es fundadora de PySys.'
     },
-    /* Puedes agregar más mentoras aquí en el futuro:
-    {
-      id: 2,
-      name: 'Camila G. (Docente en Programación)',
-      avatarUrl: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=128&h=128&q=80',
-      description: 'Camila es una educadora con una maestría en ciencias de la computación. Su experiencia pedagógica la hace ideal para explicar conceptos complejos de Python de manera sencilla y efectiva. Se especializa en programación orientada a objetos y algoritmos.'
-    },
-    {
-      id: 3,
-      name: 'Laura M. (Científica de Datos)',
-      avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=128&h=128&q=80',
-      description: 'Laura es una científica de datos con experiencia en machine learning y análisis predictivo. Ofrece mentorías personalizadas sobre cómo aplicar Python en el campo de la ciencia de datos, desde la limpieza de datos hasta la creación de modelos avanzados.'
-    },
-    {
-      id: 4,
-      name: 'Isabella T. (Mentora Junior)',
-      avatarUrl: 'https://images.unsplash.com/photo-1593104547489-5cfb3839e035?auto=format&fit=crop&w=128&h=128&q=80',
-      description: 'Isabella es una talentosa programadora junior que recientemente completó su formación en Python. Su frescura y cercanía con los desafíos de los principiantes la convierten en una excelente mentora para quienes recién empiezan. Se enfoca en resolver dudas básicas y dar los primeros pasos.'
-    },
-    */
   ];
 
   const openMentorModal = (mentor) => {
@@ -238,15 +98,14 @@ function App() {
     console.log("Correo electrónico:", e.target[1].value);
     console.log("Descripción:", e.target[2].value);
     console.log("Perfil público:", isPublicProfile);
-    e.target.reset();
-    setIsPublicProfile(false);
+    e.target.reset(); 
+    setIsPublicProfile(false); 
   };
  
   return (
     <div className="min-h-screen bg-gray-50">
       <Toaster />
       
-      {/* Navbar */}
       <motion.nav 
         className="fixed top-0 w-full z-50 bg-white/70 backdrop-blur-md shadow-sm"
         initial={{ y: -100 }}
@@ -259,7 +118,7 @@ function App() {
               className="flex items-center space-x-3"
               whileHover={{ scale: 1.05 }}
             >
-              {/* Logo */}
+              {/* Logo de PySys */}
               <img src="/logoPySys.png" alt="PySys Logo" className="w-10 h-10 rounded-full" />
               <span className="text-2xl font-bold text-gray-900">PySys</span>
             </motion.div>
@@ -281,7 +140,6 @@ function App() {
         </div>
       </motion.nav>
  
-      {/* Hero Section */}
       <section id="inicio" className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50 pt-20">
         <div className="container mx-auto px-6 text-center">
           <motion.div
@@ -318,7 +176,7 @@ function App() {
               transition={{ duration: 0.8, delay: 0.6 }}
             >
               Una nueva forma de aprender a programar: conversacional, a tu ritmo y siempre disponible para ti en Telegram
-            </motion.p> {/* Corregida la etiqueta de cierre aquí */}
+            </motion.p> 
             
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -328,7 +186,7 @@ function App() {
               <Button 
                 size="lg" 
                 className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-4 text-lg rounded-full pulse-glow transform hover:scale-105 transition-all duration-300"
-                onClick={() => window.open('https://t.me/PySisBot', '_blank')}
+                onClick={() => window.open('https://t.me/pyher_bot', '_blank')}
               >
                 <MessageCircle className="w-5 h-5 mr-2" />
                 Hablar con PySis
@@ -343,10 +201,9 @@ function App() {
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 1 }}
           >
-            {/*  */}
             <img  
               className="mx-auto w-64 h-64 rounded-full shadow-lg bg-white/50 backdrop-blur-md"
-              alt="PySys AI chatbot interface showing Python learning conversation"
+              alt="Interfaz del chatbot PySys AI mostrando una conversación de aprendizaje de Python"
               src="https://images.unsplash.com/photo-1675023035272-3426884896f8?auto=format&fit=crop&w=256&h=256&q=80"
             />
           </motion.div>
@@ -355,7 +212,6 @@ function App() {
  
       <div className="section-divider"></div>
  
-      {/* About Section */}
       <section id="sobrenosotros" className="py-20 bg-white">
         <div className="container mx-auto px-6">
           <motion.div
@@ -461,12 +317,10 @@ function App() {
  
       <div className="section-divider"></div>
       
-      {/* Sección Ranking */}
       <Ranking /> 
  
       <div className="section-divider"></div>
  
-      {/* Statistics Section */}
       <section id="estadisticas" className="py-20 bg-gray-50">
         <div className="container mx-auto px-6">
           <motion.div
@@ -477,7 +331,7 @@ function App() {
             className="text-center mb-16"
           >
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              Estadísticas de Aprendizaje
+              Panel de Impacto PySis
             </h2>
             <p className="text-xl text-gray-700 max-w-2xl mx-auto">
               Descubre el impacto real de PySys en la comunidad de estudiantes de Python
@@ -490,15 +344,33 @@ function App() {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
-              className="chart-container bg-white/70 backdrop-blur-md p-8 rounded-2xl shadow-lg"
+              className="chart-container bg-white/70 backdrop-blur-md p-8 rounded-2xl shadow-lg flex flex-col items-center justify-center"
             >
               <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
                 <BarChart3 className="w-6 h-6 mr-3 text-purple-600" />
-                Actividad Semanal
+                Distribución por nivel de avance
               </h3>
-              <div className="h-64">
-                <Bar data={weeklyProgressData} options={chartOptions} />
-              </div>
+              <ResponsiveContainer width="100%" height={300}>
+                <PieChart>
+                  <Pie
+                    data={nivelAvanceData}
+                    dataKey="value"
+                    nameKey="name"
+                    cx="50%"
+                    cy="50%"
+                    outerRadius={100}
+                    fill="#8884d8"
+                    labelLine={false}
+                    label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                  >
+                    {nivelAvanceData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={COLORS_NIVEL_AVANCE[index % COLORS_NIVEL_AVANCE.length]} />
+                    ))}
+                  </Pie>
+                  <Tooltip />
+                  <Legend />
+                </PieChart>
+              </ResponsiveContainer>
             </motion.div>
             
             <motion.div
@@ -506,38 +378,87 @@ function App() {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
               viewport={{ once: true }}
-              className="chart-container bg-white/70 backdrop-blur-md p-8 rounded-2xl shadow-lg"
+              className="chart-container bg-white/70 backdrop-blur-md p-8 rounded-2xl shadow-lg flex flex-col items-center justify-center"
             >
               <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
                 <TrendingUp className="w-6 h-6 mr-3 text-purple-600" />
-                Progreso Mensual
+                Porcentaje de constancia
               </h3>
-              <div className="h-64">
-                <Line data={learningProgressData} options={chartOptions} />
-              </div>
+              <ResponsiveContainer width="100%" height={300}>
+                <PieChart>
+                  <Pie
+                    data={constanciaData}
+                    dataKey="value"
+                    nameKey="name"
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={60}
+                    outerRadius={100}
+                    fill="#82ca9d"
+                    labelLine={false}
+                    label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                  >
+                    {constanciaData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={COLORS_CONSTANCIA[index % COLORS_CONSTANCIA.length]} />
+                    ))}
+                  </Pie>
+                  <Tooltip />
+                  <Legend />
+                </PieChart>
+              </ResponsiveContainer>
+            </motion.div>
+          </div>
+          
+          <div className="grid lg:grid-cols-2 gap-8">
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              viewport={{ once: true }}
+              className="chart-container bg-white/70 backdrop-blur-md p-8 rounded-2xl shadow-lg flex flex-col items-center justify-center text-center"
+            >
+              <h3 className="text-2xl font-bold text-gray-900 mb-4 flex items-center justify-center">
+                <Zap className="w-8 h-8 mr-3 text-yellow-500" />
+                Aprendices activas hoy
+              </h3>
+              <motion.div
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.6 }}
+                className="text-6xl font-extrabold text-purple-700 mt-4 mb-2 counting-animation"
+              >
+                {aprendicesActivasHoy}
+              </motion.div>
+              <p className="text-gray-600 text-lg">Tyzys usando PySys en las últimas 24 horas.</p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              viewport={{ once: true }}
+              className="chart-container bg-white/70 backdrop-blur-md p-8 rounded-2xl shadow-lg flex flex-col items-center justify-center"
+            >
+              <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+                <Link className="w-6 h-6 mr-3 text-blue-600" />
+                Conexiones Tyzy–Mentora
+              </h3>
+              <ResponsiveContainer width="100%" height={300}>
+                <LineChart data={conexionesData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                  <XAxis dataKey="semana" stroke="#555" />
+                  <YAxis stroke="#555" />
+                  <Tooltip />
+                  <Legend />
+                  <Line type="monotone" dataKey="conexiones" stroke="#8884d8" activeDot={{ r: 8 }} strokeWidth={2} />
+                </LineChart>
+              </ResponsiveContainer>
             </motion.div>
           </div>
           
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            viewport={{ once: true }}
-            className="chart-container bg-white/70 backdrop-blur-md p-8 rounded-2xl max-w-md mx-auto shadow-lg"
-          >
-            <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center flex items-center justify-center">
-              <Star className="w-6 h-6 mr-3 text-purple-600" />
-              Temas Más Populares
-            </h3>
-            <div className="h-64">
-              <Doughnut data={topicsData} options={doughnutOptions} />
-            </div>
-          </motion.div>
-          
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
             viewport={{ once: true }}
             className="mt-16 text-center"
           >
@@ -551,7 +472,7 @@ function App() {
               <Button 
                 size="lg" 
                 className="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white px-8 py-4 text-lg rounded-full pulse-glow transform hover:scale-105 transition-all duration-300"
-                onClick={() => window.open('https://t.me/PySisBot', '_blank')}
+                onClick={() => window.open('https://t.me/pyher_bot', '_blank')}
               >
                 <Bot className="w-5 h-5 mr-2" />
                 Comenzar Ahora
@@ -562,7 +483,6 @@ function App() {
         </div>
       </section>
 
-      {/* Sección Conexiones */}
       <section id="conexiones" className="py-20 bg-white">
         <div className="container mx-auto px-6">
           <motion.div
@@ -614,7 +534,6 @@ function App() {
                   required
                 ></textarea>
                 
-                {/* Casilla de verificación para perfil público */}
                 <div className="flex items-center space-x-2 text-gray-700">
                   <input
                     type="checkbox"
@@ -643,37 +562,38 @@ function App() {
                 Nuestras Mentoras
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-6">
-                {mentors.map((mentor) => (
-                  <motion.div
-                    key={mentor.id}
-                    className="flex flex-col items-center p-4 rounded-lg cursor-pointer hover:bg-gray-100 transition-colors"
-                    whileHover={{ scale: 1.05 }}
-                    onClick={() => openMentorModal(mentor)}
-                  >
-                    {/*  */}
-                    <img
-                      src={mentor.avatarUrl}
-                      alt={mentor.name}
-                      className="w-24 h-24 rounded-full object-cover mb-2 shadow-md border-2 border-gray-200" 
-                      loading="lazy" 
-                      onError={(e) => { e.target.onerror = null; e.target.src="https://placehold.co/96x96/cccccc/333333?text=N/A"; }} 
-                    />
-                    <span className="text-center font-semibold text-gray-800 text-sm">
-                      {mentor.name.split('(')[0].trim()}
-                    </span>
-                  </motion.div>
-                ))}
+                {allMentors.length > 0 ? (
+                  allMentors.map((mentor) => (
+                    <motion.div
+                      key={mentor.id}
+                      className="flex flex-col items-center p-4 rounded-lg cursor-pointer hover:bg-gray-100 transition-colors"
+                      whileHover={{ scale: 1.05 }}
+                      onClick={() => openMentorModal(mentor)}
+                    >
+                      <img
+                        src={mentor.avatarUrl || "https://placehold.co/96x96/cccccc/333333?text=N/A"}
+                        alt={mentor.name}
+                        className="w-24 h-24 rounded-full object-cover mb-2 shadow-md border-2 border-gray-200" 
+                        loading="lazy"
+                        onError={(e) => { e.target.onerror = null; e.target.src="https://placehold.co/96x96/cccccc/333333?text=N/A"; }}
+                      />
+                      <span className="text-center font-semibold text-gray-800 text-sm">
+                        {mentor.name.split('(')[0].trim()}
+                      </span>
+                    </motion.div>
+                  ))
+                ) : (
+                  <p className="text-gray-600 text-center">No hay mentoras disponibles aún.</p>
+                )}
               </div>
             </motion.div>
           </div>
         </div>
       </section>
- 
-      {/* Footer */}
+
       <footer className="bg-gradient-to-r from-purple-900 to-blue-900 py-12">
         <div className="container mx-auto px-6 text-center">
           <div className="flex items-center justify-center space-x-3 mb-6">
-            {/* Logo en el Footer */}
             <img src="/logoPySys.png" alt="PySys Logo" className="w-12 h-12 rounded-full" />
             <span className="text-3xl font-bold text-white">PySys</span>
           </div>
@@ -686,7 +606,7 @@ function App() {
             <Button 
               variant="ghost" 
               className="text-purple-200 hover:text-white hover:bg-purple-800/50"
-              onClick={() => window.open('https://t.me/PySisBot', '_blank')}
+              onClick={() => window.open('https://t.me/pyher_bot', '_blank')}
             >
               <MessageCircle className="w-5 h-5 mr-2" />
               Telegram
@@ -701,7 +621,6 @@ function App() {
         </div>
       </footer>
 
-      {/* Mentor Detail Modal */}
       {isModalOpen && selectedMentor && (
         <div 
           className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
@@ -722,13 +641,12 @@ function App() {
               <X className="w-6 h-6" />
             </button>
             <div className="flex flex-col items-center mb-6">
-              {/*  */}
               <img 
-                src={selectedMentor.avatarUrl} 
+                src={selectedMentor.avatarUrl || "https://placehold.co/128x128/cccccc/333333?text=N/A"}
                 alt={selectedMentor.name} 
                 className="w-32 h-32 rounded-full object-cover mb-4 shadow-md border-2 border-gray-200"
-                loading="lazy"
-                onError={(e) => { e.target.onerror = null; e.target.src="https://placehold.co/128x128/cccccc/333333?text=N/A"; }} // Fallback en caso de error
+                loading="lazy" 
+                onError={(e) => { e.target.onerror = null; e.target.src="https://placehold.co/128x128/cccccc/333333?text=N/A"; }}
               />
               <h3 className="text-3xl font-bold text-gray-900 text-center mb-2">
                 {selectedMentor.name.split('(')[0].trim()}
