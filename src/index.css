@@ -1,28 +1,28 @@
-
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+/* 🎨 Variables personalizadas para colores */
 :root {
-  --background: 220 23% 95%;
-  --foreground: 220 9% 9%;
+  --background: 285 100% 95%;
+  --foreground: 278 39% 20%;
   --card: 0 0% 100%;
-  --card-foreground: 220 9% 9%;
+  --card-foreground: 278 39% 20%;
   --popover: 0 0% 100%;
-  --popover-foreground: 220 9% 9%;
-  --primary: 262 83% 58%;
-  --primary-foreground: 0 0% 98%;
-  --secondary: 220 14% 96%;
-  --secondary-foreground: 220 9% 9%;
-  --muted: 220 14% 96%;
-  --muted-foreground: 220 9% 46%;
-  --accent: 220 14% 96%;
-  --accent-foreground: 220 9% 9%;
+  --popover-foreground: 278 39% 20%;
+  --primary: 278 39% 30%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 291 31% 89%;
+  --secondary-foreground: 278 39% 30%;
+  --muted: 291 31% 89%;
+  --muted-foreground: 278 24% 48%;
+  --accent: 291 31% 89%;
+  --accent-foreground: 278 39% 30%;
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 98%;
-  --border: 220 13% 91%;
-  --input: 220 13% 91%;
-  --ring: 262 83% 58%;
+  --border: 280 30% 85%;
+  --input: 280 30% 85%;
+  --ring: 278 39% 30%;
   --radius: 0.5rem;
 }
 
@@ -30,15 +30,17 @@
   border-color: hsl(var(--border));
 }
 
+/* 🟣 Aplica fondo y color por defecto con las variables */
 body {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background-color: hsl(var(--background));
   color: hsl(var(--foreground));
   font-feature-settings: "rlig" 1, "calt" 1;
   min-height: 100vh;
 }
 
+/* ✅ Clases adicionales */
 .gradient-text {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, hsl(278, 39%, 30%) 0%, hsl(291, 31%, 50%) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -70,8 +72,8 @@ body {
 }
 
 @keyframes pulse-glow {
-  from { box-shadow: 0 0 20px rgba(102, 126, 234, 0.4); }
-  to { box-shadow: 0 0 40px rgba(102, 126, 234, 0.8); }
+  from { box-shadow: 0 0 20px rgba(90, 43, 130, 0.4); }
+  to { box-shadow: 0 0 40px rgba(90, 43, 130, 0.8); }
 }
 
 .chart-container {
@@ -86,3 +88,5 @@ body {
   height: 1px;
   margin: 4rem 0;
 }
+
+
