@@ -1,3 +1,4 @@
+// src/App.jsx
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
@@ -43,6 +44,7 @@ function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isPublicProfile, setIsPublicProfile] = useState(false);
 
+
   const nivelAvanceData = [
     { name: "Inicio (Día 1–3)", value: 40 },
     { name: "Exploración (Día 4–10)", value: 32 },
@@ -58,7 +60,6 @@ function App() {
   const COLORS_CONSTANCIA = ['#6A329F', '#9B59B6']; 
 
   const aprendicesActivasHoy = 112; 
-
 
   const conexionesData = [
     { semana: "Semana 1", conexiones: 5 },
@@ -82,7 +83,6 @@ function App() {
       avatarUrl: 'Mentora_aleja.png', 
       description: 'Alejandra es Ingeniera de Machine Learning y AI, y estudiante de maestría en Inteligencia Artificial. Le apasiona enseñar, compartir conocimiento y aplicar la inteligencia artificial para generar un impacto positivo en el mundo real. Su enfoque combina el desarrollo técnico con un fuerte compromiso por la ética y la transformación social a través de la tecnología, es fundadora de PySys.'
     },
-
   ];
 
   const openMentorModal = (mentor) => {
@@ -355,9 +355,12 @@ function App() {
               </h3>
               <ResponsiveContainer width="100%" height={300}>
                 <BarChart data={nivelAvanceData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-                  <XAxis dataKey="name" stroke="#555" />
+                  <XAxis dataKey="name" stroke="#555" angle={-30} textAnchor="end" height={60} /> 
                   <YAxis stroke="#555" />
-                  <Tooltip formatter={(value) => `${value} tyzys`} /> 
+                  <Tooltip 
+                    formatter={(value, name, props) => [`${value}`, 'Tyzys']} 
+                    labelFormatter={(label) => label} 
+                  />
                   <Legend />
                   <Bar dataKey="value" fill="#6A329F"> 
                     {
@@ -399,7 +402,9 @@ function App() {
                       <Cell key={`cell-${index}`} fill={COLORS_CONSTANCIA[index % COLORS_CONSTANCIA.length]} />
                     ))}
                   </Pie>
-                  <Tooltip formatter={(value) => `${value} tyzys`} /> 
+                  <Tooltip 
+                    formatter={(value) => `${value} tyzys`} 
+                  /> 
                   <Legend />
                 </PieChart>
               </ResponsiveContainer>
@@ -444,7 +449,7 @@ function App() {
                 <LineChart data={conexionesData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                   <XAxis dataKey="semana" stroke="#555" />
                   <YAxis stroke="#555" />
-                  <Tooltip formatter={(value) => `${value} tyzys`} /> 
+                  <Tooltip formatter={(value) => [`${value}`, 'Tyzys']} /> 
                   <Legend />
                   <Line type="monotone" dataKey="conexiones" stroke="#6A329F" activeDot={{ r: 8 }} strokeWidth={2} />
                 </LineChart>
@@ -638,7 +643,6 @@ function App() {
               <X className="w-6 h-6" />
             </button>
             <div className="flex flex-col items-center mb-6">
-
               <img 
                 src={selectedMentor.avatarUrl || "https://placehold.co/128x128/cccccc/333333?text=N/A"} 
                 alt={selectedMentor.name} 
