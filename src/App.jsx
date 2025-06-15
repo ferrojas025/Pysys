@@ -126,7 +126,7 @@ function App() {
             </motion.div>
             
             <div className="hidden md:flex space-x-8">
-              {['Inicio', 'Sobre Nosotros', 'Qué es Tyzy?', 'Nuestro Propósito', 'Ranking', 'Estadísticas', 'Conexiones'].map((item, idx) => (
+              {['Inicio', 'Sobre Nosotros', 'Ranking', 'Estadísticas', 'Conexiones'].map((item, idx) => (
                 <button
                   key={idx}
                   onClick={() => scrollToSection(item.toLowerCase().replace(/\s+/g, '').replace('?', '').replace('á', 'a'))}
@@ -228,14 +228,14 @@ function App() {
             </h2>
           </motion.div>
           
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
             >
-              <div className="bg-white/70 backdrop-blur-md p-8 rounded-2xl shadow-lg">
+              <div className="bg-white/70 backdrop-blur-md p-8 rounded-2xl shadow-lg text-left">
                 <p className="text-lg text-gray-700 mb-6 leading-relaxed">
                 PySis es una mentora de programación revolucionaria basada en inteligencia artificial, diseñada específicamente para enseñar Python a principiantes de una manera completamente nueva y accesible.
                 </p>
@@ -288,7 +288,7 @@ function App() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
             viewport={{ once: true }}
-            className="mt-16 grid md:grid-cols-3 gap-8"
+            className="mt-16 grid md:grid-cols-3 gap-8 mb-16"
           >
             <div className="bg-white/70 backdrop-blur-md p-8 rounded-2xl text-center shadow-lg">
               <Code className="w-16 h-16 text-blue-500 mx-auto mb-6" />
@@ -314,25 +314,18 @@ function App() {
               </p>
             </div>
           </motion.div>
-        </div>
-      </section>
 
-      <div className="section-divider"></div>
-
-      {/* Nueva Sección: ¿Qué es Tyzy? y Nuestro Propósito */}
-      <section id="queestyzy" className="py-20 bg-gradient-to-br from-pink-50 to-purple-50">
-        <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-12 items-start">
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className="bg-white/70 backdrop-blur-md p-8 rounded-2xl shadow-lg h-full flex flex-col"
-            >
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }} 
+            viewport={{ once: true }}
+            className="grid md:grid-cols-2 gap-12 items-start" 
+          >
+            <div className="bg-white/70 backdrop-blur-md p-8 rounded-2xl shadow-lg h-full flex flex-col text-left">
+              <h3 className="text-3xl font-bold text-gray-900 mb-6 text-center">
                 🌸 ¿Qué es Tyzy?
-              </h2>
+              </h3>
               <p className="text-lg text-gray-700 mb-6 leading-relaxed">
                 Tyzy, en el lenguaje muisca, significa persona amada.
               </p>
@@ -345,19 +338,12 @@ function App() {
               <p className="text-lg text-gray-700 leading-relaxed">
                 Pero Tyzy no es solo un nombre bonito. Es una filosofía. Un recordatorio constante de que tu historia, tu voz y tu crecimiento importan.
               </p>
-            </motion.div>
+            </div>
 
-            <motion.div
-              id="nuestroproposito" // ID para la navegación
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              viewport={{ once: true }}
-              className="bg-white/70 backdrop-blur-md p-8 rounded-2xl shadow-lg h-full flex flex-col"
-            >
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 text-center">
+            <div className="bg-white/70 backdrop-blur-md p-8 rounded-2xl shadow-lg h-full flex flex-col text-left">
+              <h3 className="text-3xl font-bold text-gray-900 mb-6 text-center">
                 🌱 Nuestro propósito contigo
-              </h2>
+              </h3>
               <p className="text-lg text-gray-700 mb-6 leading-relaxed">
                 Nuestro mayor deseo es que aprendas a programar, sí…
               </p>
@@ -375,8 +361,9 @@ function App() {
                 Y si alguna vez dudas de ti misma, recuerda esto:<br/>
                 No estás sola. Nos tienes. Y creemos profundamente en ti.
               </p>
-            </motion.div>
-          </div>
+            </div>
+          </motion.div>
+
         </div>
       </section>
       
@@ -418,21 +405,23 @@ function App() {
                 Distribución por nivel de avance
               </h3>
               <ResponsiveContainer width="100%" height={300}>
-                <BarChart data={nivelAvanceData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-                  <XAxis 
+                <BarChart layout="vertical" data={nivelAvanceData} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
+                  <YAxis 
                     dataKey="name" 
+                    type="category" 
                     stroke="#555" 
-                    angle={-30} 
-                    textAnchor="end" 
-                    height={70} // Aumentado el alto para las etiquetas
-                    interval={0} 
+                    width={100} // Ajusta el ancho para las etiquetas más largas
                     tickFormatter={(tick) => {
-                      // Solo muestra la parte "Día X-Y"
                       const match = tick.match(/\(Día\s(\d+–\d+)\)/);
                       return match ? `Día ${match[1]}` : tick;
                     }}
                   /> 
-                  <YAxis stroke="#555" />
+                  <XAxis 
+                    dataKey="value" 
+                    type="number" 
+                    stroke="#555" 
+                    label={{ value: 'Tyzys', position: 'insideBottomRight', offset: 0, fill: '#555' }} // Etiqueta para el eje X
+                  />
                   <Tooltip 
                     formatter={(value) => [`Tyzys: ${value}`]} 
                     labelFormatter={(label) => label} 
