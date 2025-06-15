@@ -1,4 +1,3 @@
-// Frontend - copia/vite.config.js
 import path from 'node:path';
 import react from '@vitejs/plugin-react';
 import { createLogger, defineConfig } from 'vite';
@@ -11,7 +10,6 @@ if (isDev) {
 	editModeDevPlugin = (await import('./plugins/visual-editor/vite-plugin-edit-mode.js')).default;
 }
 
-// ... (el resto de los manejadores de errores se mantienen igual) ...
 const configHorizonsViteErrorHandler = `...`;
 const configHorizonsRuntimeErrorHandler = `...`;
 const configHorizonsConsoleErrroHandler = `...`;
@@ -47,15 +45,13 @@ export default defineConfig({
 			'Cross-Origin-Embedder-Policy': 'credentialless',
 		},
 		allowedHosts: true,
-        // --- AÑADIDO: Configuración del Proxy ---
         proxy: {
             '/api': {
-                target: 'http://localhost:8004',
+                target: 'http://34.61.5.142:8004',
                 changeOrigin: true,
                 rewrite: (path) => path.replace(/^\/api/, '')
             }
         }
-        // ------------------------------------
 	},
 	resolve: {
 		extensions: ['.jsx', '.js', '.tsx', '.ts', '.json', ],
