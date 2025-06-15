@@ -79,7 +79,7 @@ function App() {
     {
       id: 'hardcoded-aleja',
       name: 'Alejandra Rojas (Ingeniera de Machine Learning)',
-      avatarUrl: 'Mentora_aleja.png', 
+      avatarUrl: '/Alcance (2).png', 
       description: 'Alejandra es Ingeniera de Machine Learning y AI, y estudiante de maestría en Inteligencia Artificial. Le apasiona enseñar, compartir conocimiento y aplicar la inteligencia artificial para generar un impacto positivo en el mundo real. Su enfoque combina el desarrollo técnico con un fuerte compromiso por la ética y la transformación social a través de la tecnología, es fundadora de PySys.'
     },
   ];
@@ -156,6 +156,7 @@ function App() {
               animate={{ opacity: 1, scale: 1 }} 
               transition={{ duration: 0.8, delay: 0.2 }} 
             >
+              Crea tu camino con{' '} {/* Texto modificado */}
               <span className="bg-gradient-to-r from-purple-600 to-fuchsia-600 bg-clip-text text-transparent"> 
                 PySys
               </span>
@@ -194,9 +195,22 @@ function App() {
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
             </motion.div>
+
+            {/* REINCORPORADA: La motion.div con la imagen y el círculo (contenido) */}
+            <motion.div 
+              className="mt-16 floating-animation"
+              initial={{ opacity: 0 }} 
+              animate={{ opacity: 1 }} 
+              transition={{ duration: 1, delay: 1 }} 
+            >
+              <img  
+                className="mx-auto w-64 h-64 rounded-full shadow-lg bg-white/50 backdrop-blur-md"
+                alt="Interfaz del chatbot PySys AI mostrando una conversación de aprendizaje de Python"
+                src="https://images.unsplash.com/photo-1675023035272-3426884896f8?auto=format&fit=crop&w=256&h=256&q=80"
+              />
+            </motion.div>
+            
           </motion.div>
-          
-          {/* ELIMINADA: La motion.div con la imagen y el círculo */}
           
         </div>
       </section>
