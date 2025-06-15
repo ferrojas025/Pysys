@@ -121,7 +121,7 @@ function App() {
       id: 'hardcoded-aleja',
       name: 'Alejandra Rojas (Ingeniera de Machine Learning)',
       avatarUrl: 'Mentora_aleja.png', 
-      description: 'Alejandra es Ingeniera de Machine Learning y AI, y estudiante de maestría en Inteligencia Artificial. Le apasiona enseñar, compartir conocimiento y aplicar la inteligencia artificial para generar un impacto positivo en el mundo real. Su enfoque combina el desarrollo técnico con un fuerte compromiso por la ética y la transformación social a través de la tecnología, es fundadora de PySys.'
+      description: 'Alejandra es Ingeniera de Machine Learning y AI, y estudiante de maestría en Inteligencia Artificial. Le apasiona enseñar, compartir conocimiento y aplicar la inteligencia artificial para generar un impacto positivo en el mundo real. Su enfoque combina el desarrollo técnico con un fuerte compromiso por la ética y la transformación social a través de la tecnología, es fundadora de PySis.'
     },
   ];
 
@@ -163,8 +163,8 @@ function App() {
               className="flex items-center space-x-3"
               whileHover={{ scale: 1.05 }} 
             >
-              <img src="/logoPySys.png" alt="PySys Logo" className="w-10 h-10 rounded-full" />
-              <span className="text-2xl font-bold text-gray-900">PySys</span>
+              <img src="/logoPySis.png" alt="PySis Logo" className="w-10 h-10 rounded-full" />
+              <span className="text-2xl font-bold text-gray-900">PySis</span>
             </motion.div>
             
             <div className="hidden md:flex space-x-8">
@@ -208,7 +208,7 @@ function App() {
               transition={{ duration: 0.8, delay: 0.4 }}
             >
               <span className="bg-gradient-to-r from-purple-600 to-fuchsia-600 bg-clip-text text-transparent"> 
-              PySys
+              PySis
               </span>
             </motion.p>
 
@@ -263,7 +263,7 @@ function App() {
             className="text-center mb-16"
           >
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              ¿Qué es PySys?
+              ¿Qué es PySis?
             </h2>
           </motion.div>
           
@@ -436,10 +436,10 @@ function App() {
             className="text-center mb-16"
           >
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              Panel de Impacto PySys
+              Panel de Impacto PySis
             </h2>
             <p className="text-xl text-gray-700 max-w-2xl mx-auto">
-              Descubre el impacto real de PySys en la comunidad de estudiantes de Python
+              Descubre el impacto real de PySis en la comunidad de estudiantes de Python
             </p>
           </motion.div>
 
@@ -525,7 +525,7 @@ function App() {
                   >
                     {activeUsersLast7Days}
                   </motion.div>
-                  <p className="text-gray-600 text-lg">Tyzys usando PySys en los últimos 7 días.</p>
+                  <p className="text-gray-600 text-lg">Tyzys usando PySis en los últimos 7 días.</p>
                 </motion.div>
               </div>
             </>
@@ -543,7 +543,7 @@ function App() {
                   ¿Lista para unirte a nuestra comunidad?
               </h3>
               <p className="text-gray-600 mb-6">
-                  Más de 500 Tyzys ya están aprendiendo Python con PySys. ¡Sé la próxima en dominar la programación!
+                  Más de 500 Tyzys ya están aprendiendo Python con PySis. ¡Sé la próxima en dominar la programación!
               </p>
               <Button 
                   size="lg" 
@@ -673,8 +673,8 @@ function App() {
       <footer className="bg-gradient-to-r from-purple-900 to-blue-900 py-12">
         <div className="container mx-auto px-6 text-center">
           <div className="flex items-center justify-center space-x-3 mb-6">
-            <img src="/logoPySys.png" alt="PySys Logo" className="w-12 h-12 rounded-full" />
-            <span className="text-3xl font-bold text-white">PySys</span>
+            <img src="/logoPySis.png" alt="PySis Logo" className="w-12 h-12 rounded-full" />
+            <span className="text-3xl font-bold text-white">PySis</span>
           </div>
           
           <p className="text-purple-200 mb-6 max-w-md mx-auto">
@@ -694,7 +694,7 @@ function App() {
           
           <div className="border-t border-purple-700 pt-6">
             <p className="text-purple-300 text-sm">
-              © 2025 PySys. Todos los derechos reservados. Hecho con ❤️ para las futuras Tyzys.
+              © 2025 PySis. Todos los derechos reservados. Hecho con ❤️ para las futuras Tyzys.
             </p>
           </div>
         </div>
