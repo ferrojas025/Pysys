@@ -97,7 +97,6 @@ function App() {
   const handleSubmitMentorForm = (e) => {
     e.preventDefault();
     console.log("Formulario de mentora enviado:");
-    // Acceso a los valores usando e.target.elements.nombreDelCampo.value
     console.log("Nombre completo:", e.target.elements.nombre.value);
     console.log("Correo electrónico:", e.target.elements.email.value);
     console.log("Descripción:", e.target.elements.descripcion.value);
