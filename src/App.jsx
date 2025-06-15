@@ -210,9 +210,9 @@ function App() {
         </div>
       </section>
  
-      <div className="section-divider"></div>
+      {/* ELIMINADO: el div con la clase section-divider */}
  
-      <section id="sobrenosotros" className="py-20 bg-purple-50">
+      <section id="sobrenosotros" className="py-20 bg-purple-100"> 
         <div className="container mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 50 }} 
@@ -233,7 +233,7 @@ function App() {
               transition={{ duration: 0.8 }} 
               viewport={{ once: true }} 
             >
-              <div className="bg-white/70 backdrop-blur-md p-8 rounded-2xl shadow-lg text-left">
+              <div className="bg-purple-50 backdrop-blur-md p-8 rounded-2xl shadow-lg text-left"> 
                 <p className="text-lg text-gray-700 mb-6 leading-relaxed">
                 PySis es una mentora de programación revolucionaria basada en inteligencia artificial, diseñada específicamente para enseñar Python a principiantes de una manera completamente nueva y accesible.
                 </p>
@@ -255,28 +255,28 @@ function App() {
               viewport={{ once: true }} 
               className="grid grid-cols-2 gap-6"
             >
-              <div className="bg-white/70 backdrop-blur-md p-6 rounded-xl text-center shadow-lg">
+              <div className="bg-purple-50 backdrop-blur-md p-6 rounded-xl text-center shadow-lg"> 
                 <Users className="w-12 h-12 text-yellow-500 mx-auto mb-4" />
                 <span className="text-2xl font-bold text-gray-900 block">500+</span>
                 <span className="text-gray-600">Tyzys</span>
               </div>
               
-              <div className="bg-white/70 backdrop-blur-md p-6 rounded-xl text-center shadow-lg">
+              <div className="bg-purple-50 backdrop-blur-md p-6 rounded-xl text-center shadow-lg"> 
                 <BookOpen className="w-12 h-12 text-green-500 mx-auto mb-4" />
                 <span className="text-2xl font-bold text-gray-900 block">1,200+</span>
                 <span className="text-gray-600">Lecciones</span>
               </div>
               
-              <div className="bg-white/70 backdrop-blur-md p-6 rounded-xl text-center shadow-lg">
+              <div className="bg-purple-50 backdrop-blur-md p-6 rounded-xl text-center shadow-lg"> 
                 <Clock className="w-12 h-12 text-blue-500 mx-auto mb-4" />
                 <span className="text-2xl font-bold text-gray-900 block">24/7</span>
                 <span className="text-gray-600">Disponible</span>
               </div>
               
-              <div className="bg-white/70 backdrop-blur-md p-6 rounded-xl text-center shadow-lg">
+              <div className="bg-purple-50 backdrop-blur-md p-6 rounded-xl text-center shadow-lg"> 
                 <Award className="w-12 h-12 text-purple-500 mx-auto mb-4" />
                 <span className="text-2xl font-bold text-gray-900 block">95%</span>
-                <span className="text-600">Satisfacción</span>
+                <span className="text-gray-600">Satisfacción</span>
               </div>
             </motion.div>
           </div>
@@ -288,7 +288,7 @@ function App() {
             viewport={{ once: true }} 
             className="mt-16 grid md:grid-cols-3 gap-8 mb-16"
           >
-            <div className="bg-white/70 backdrop-blur-md p-8 rounded-2xl text-center shadow-lg">
+            <div className="bg-purple-50 backdrop-blur-md p-8 rounded-2xl text-center shadow-lg"> 
               <Code className="w-16 h-16 text-blue-500 mx-auto mb-6" />
               <h3 className="text-xl font-bold text-gray-900 mb-4">Aprendizaje Interactivo</h3>
               <p className="text-gray-600">
@@ -296,7 +296,7 @@ function App() {
               </p>
             </div>
             
-            <div className="bg-white/70 backdrop-blur-md p-8 rounded-2xl text-center shadow-lg">
+            <div className="bg-purple-50 backdrop-blur-md p-8 rounded-2xl text-center shadow-lg"> 
               <Target className="w-16 h-16 text-green-500 mx-auto mb-6" />
               <h3 className="text-xl font-bold text-gray-900 mb-4">Personalizado</h3>
               <p className="text-gray-600">
@@ -304,7 +304,7 @@ function App() {
               </p>
             </div>
             
-            <div className="bg-white/70 backdrop-blur-md p-8 rounded-2xl text-center shadow-lg">
+            <div className="bg-purple-50 backdrop-blur-md p-8 rounded-2xl text-center shadow-lg"> 
               <TrendingUp className="w-16 h-16 text-yellow-500 mx-auto mb-6" />
               <h3 className="text-xl font-bold text-gray-900 mb-4">Progreso Visible</h3>
               <p className="text-gray-600">
@@ -325,8 +325,7 @@ function App() {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
-              className="p-8 rounded-2xl shadow-lg h-full flex flex-col text-left"
-              style={{ backgroundColor: '#E0BBE4' }} 
+              className="p-8 rounded-2xl shadow-lg h-full flex flex-col text-left bg-purple-50" 
             >
               <h3 className="text-3xl font-bold text-gray-900 mb-6 text-center">
                 🌸 ¿Qué es Tyzy?
@@ -350,8 +349,7 @@ function App() {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
               viewport={{ once: true }}
-              className="p-8 rounded-2xl shadow-lg h-full flex flex-col text-left"
-              style={{ backgroundColor: '#AEC6CF' }} 
+              className="p-8 rounded-2xl shadow-lg h-full flex flex-col text-left bg-blue-50" 
             >
               <h3 className="text-3xl font-bold text-gray-900 mb-6 text-center">
                 🌱 Nuestro propósito contigo
@@ -387,7 +385,7 @@ function App() {
  
       <div className="section-divider"></div>
  
-      <section id="estadisticas" className="py-20 bg-blue-50">
+      <section id="estadisticas" className="py-20 bg-blue-100"> 
         <div className="container mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 50 }} 
@@ -410,8 +408,7 @@ function App() {
               whileInView={{ opacity: 1, x: 0 }} 
               transition={{ duration: 0.8 }} 
               viewport={{ once: true }} 
-              className="chart-container bg-white/70 backdrop-blur-md p-8 rounded-2xl shadow-lg flex flex-col items-center justify-center"
-            >
+              className="chart-container bg-blue-50 p-8 rounded-2xl shadow-lg flex flex-col items-center justify-center"> 
               <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
                 <BarChart3 className="w-6 h-6 mr-3 text-purple-600" />
                 Distribución por nivel de avance
@@ -455,7 +452,7 @@ function App() {
               whileInView={{ opacity: 1, x: 0 }} 
               transition={{ duration: 0.8, delay: 0.2 }} 
               viewport={{ once: true }} 
-              className="chart-container bg-white/70 backdrop-blur-md p-8 rounded-2xl shadow-lg flex flex-col items-center justify-center"
+              className="chart-container bg-blue-50 p-8 rounded-2xl shadow-lg flex flex-col items-center justify-center"
             >
               <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
                 <TrendingUp className="w-6 h-6 mr-3 text-purple-600" />
@@ -494,7 +491,7 @@ function App() {
               whileInView={{ opacity: 1, y: 0 }} 
               transition={{ duration: 0.8, delay: 0.4 }} 
               viewport={{ once: true }} 
-              className="chart-container bg-white/70 backdrop-blur-md p-8 rounded-2xl shadow-lg flex flex-col items-center justify-center text-center"
+              className="chart-container bg-blue-50 p-8 rounded-2xl shadow-lg flex flex-col items-center justify-center text-center"
             >
               <h3 className="text-2xl font-bold text-gray-900 mb-4 flex items-center justify-center">
                 <Zap className="w-8 h-8 mr-3 text-yellow-500" />
@@ -516,7 +513,7 @@ function App() {
               whileInView={{ opacity: 1, y: 0 }} 
               transition={{ duration: 0.8, delay: 0.6 }} 
               viewport={{ once: true }} 
-              className="chart-container bg-white/70 backdrop-blur-md p-8 rounded-2xl shadow-lg flex flex-col items-center justify-center"
+              className="chart-container bg-blue-50 p-8 rounded-2xl shadow-lg flex flex-col items-center justify-center"
             >
               <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
                 <Link className="w-6 h-6 mr-3 text-blue-600" />
@@ -562,7 +559,7 @@ function App() {
         </div>
       </section>
 
-      <section id="conexiones" className="py-20 bg-purple-50">
+      <section id="conexiones" className="py-20 bg-purple-100"> 
         <div className="container mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 50 }} 
@@ -585,7 +582,7 @@ function App() {
               whileInView={{ opacity: 1, x: 0 }} 
               transition={{ duration: 0.8 }} 
               viewport={{ once: true }} 
-              className="bg-white/70 backdrop-blur-md p-8 rounded-2xl shadow-lg"
+              className="bg-purple-50 p-8 rounded-2xl shadow-lg" 
             >
               <h3 className="text-2xl font-bold text-gray-900 mb-4">
                 ¿Quieres ser Mentora?
@@ -638,7 +635,7 @@ function App() {
               whileInView={{ opacity: 1, x: 0 }} 
               transition={{ duration: 0.8 }} 
               viewport={{ once: true }} 
-              className="bg-white/70 backdrop-blur-md p-8 rounded-2xl shadow-lg"
+              className="bg-purple-50 p-8 rounded-2xl shadow-lg" 
             >
               <h3 className="text-2xl font-bold text-gray-900 mb-6">
                 Nuestras Mentoras
