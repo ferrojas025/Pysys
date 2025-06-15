@@ -126,12 +126,12 @@ function App() {
             </motion.div>
             
             <div className="hidden md:flex space-x-8">
-              {['Inicio', 'Sobre Nosotros', 'Qué es Tyzy?', 'Ranking', 'Estadísticas', 'Conexiones'].map((item, idx) => (
+              {['Inicio', 'Sobre Nosotros', 'Qué es Tyzy?', 'Nuestro Propósito', 'Ranking', 'Estadísticas', 'Conexiones'].map((item, idx) => (
                 <button
                   key={idx}
-                  onClick={() => scrollToSection(item.toLowerCase().replace(/\s+/g, ''))}
+                  onClick={() => scrollToSection(item.toLowerCase().replace(/\s+/g, '').replace('?', '').replace('á', 'a'))}
                   className={`text-gray-700 hover:text-purple-700 transition-colors ${
-                    activeSection === item.toLowerCase().replace(/\s+/g, '') ? 'text-purple-700' : ''
+                    activeSection === item.toLowerCase().replace(/\s+/g, '').replace('?', '').replace('á', 'a') ? 'text-purple-700' : ''
                   }`}
                 >
                   {item}
@@ -188,7 +188,7 @@ function App() {
               <Button 
                 size="lg" 
                 className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-4 text-lg rounded-full pulse-glow transform hover:scale-105 transition-all duration-300"
-                onClick={() => window.open('https://t.me/pyher_bot', '_blank')}
+                onClick={() => window.open('https://t.me/PySisBot', '_blank')}
               >
                 <MessageCircle className="w-5 h-5 mr-2" />
                 Hablar con PySis
@@ -319,38 +319,69 @@ function App() {
 
       <div className="section-divider"></div>
 
-      {/* Nueva Sección: ¿Qué es Tyzy? */}
+      {/* Nueva Sección: ¿Qué es Tyzy? y Nuestro Propósito */}
       <section id="queestyzy" className="py-20 bg-gradient-to-br from-pink-50 to-purple-50">
-        <div className="container mx-auto px-6 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="max-w-3xl mx-auto bg-white/70 backdrop-blur-md p-8 rounded-2xl shadow-lg"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              🌸 ¿Qué es Tyzy?
-            </h2>
-            <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-              Tyzy, en el lenguaje muisca, significa persona amada.
-            </p>
-            <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-              Y eso es exactamente lo que queremos que sientas: que eres valiosa, bienvenida y profundamente apreciada.
-            </p>
-            <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-              Para nosotras, cada futura programadora que llega aquí no es solo una estudiante… es una Tyzy, una parte esencial de esta comunidad que sueña con transformar el mundo con tecnología y ternura.
-            </p>
-            <p className="text-lg text-gray-700 leading-relaxed">
-              Pero Tyzy no es solo un nombre bonito. Es una filosofía. Un recordatorio constante de que tu historia, tu voz y tu crecimiento importan.
-            </p>
-          </motion.div>
+        <div className="container mx-auto px-6">
+          <div className="grid md:grid-cols-2 gap-12 items-start">
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="bg-white/70 backdrop-blur-md p-8 rounded-2xl shadow-lg h-full flex flex-col"
+            >
+              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 text-center">
+                🌸 ¿Qué es Tyzy?
+              </h2>
+              <p className="text-lg text-gray-700 mb-6 leading-relaxed">
+                Tyzy, en el lenguaje muisca, significa persona amada.
+              </p>
+              <p className="text-lg text-gray-700 mb-6 leading-relaxed">
+                Y eso es exactamente lo que queremos que sientas: que eres valiosa, bienvenida y profundamente apreciada.
+              </p>
+              <p className="text-lg text-gray-700 mb-6 leading-relaxed">
+                Para nosotras, cada futura programadora que llega aquí no es solo una estudiante… es una Tyzy, una parte esencial de esta comunidad que sueña con transformar el mundo con tecnología y ternura.
+              </p>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                Pero Tyzy no es solo un nombre bonito. Es una filosofía. Un recordatorio constante de que tu historia, tu voz y tu crecimiento importan.
+              </p>
+            </motion.div>
+
+            <motion.div
+              id="nuestroproposito" // ID para la navegación
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="bg-white/70 backdrop-blur-md p-8 rounded-2xl shadow-lg h-full flex flex-col"
+            >
+              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 text-center">
+                🌱 Nuestro propósito contigo
+              </h2>
+              <p className="text-lg text-gray-700 mb-6 leading-relaxed">
+                Nuestro mayor deseo es que aprendas a programar, sí…
+              </p>
+              <p className="text-lg text-gray-700 mb-6 leading-relaxed">
+                Pero también que descubras tu poder, tu creatividad, tu voz.
+              </p>
+              <p className="text-lg text-gray-700 mb-6 leading-relaxed">
+                Queremos que salgas de aquí no solo sabiendo escribir código, sino también sabiendo que puedes construir lo que imagines.
+              </p>
+              <p className="text-lg text-gray-700 mb-6 leading-relaxed">
+                Que te conectes con otras Tyzys, que encuentres guía, amistad y nuevas oportunidades.
+                Este es un punto de partida, no un destino.
+              </p>
+              <p className="text-lg text-gray-700 leading-relaxed font-semibold">
+                Y si alguna vez dudas de ti misma, recuerda esto:<br/>
+                No estás sola. Nos tienes. Y creemos profundamente en ti.
+              </p>
+            </motion.div>
+          </div>
         </div>
       </section>
       
       <div className="section-divider"></div>
       
-      {/* Wrapper div para el componente Ranking con su ID */}
       <div id="ranking"> 
         <Ranking /> 
       </div>
@@ -388,7 +419,19 @@ function App() {
               </h3>
               <ResponsiveContainer width="100%" height={300}>
                 <BarChart data={nivelAvanceData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-                  <XAxis dataKey="name" stroke="#555" angle={-30} textAnchor="end" height={60} interval={0} /> 
+                  <XAxis 
+                    dataKey="name" 
+                    stroke="#555" 
+                    angle={-30} 
+                    textAnchor="end" 
+                    height={70} // Aumentado el alto para las etiquetas
+                    interval={0} 
+                    tickFormatter={(tick) => {
+                      // Solo muestra la parte "Día X-Y"
+                      const match = tick.match(/\(Día\s(\d+–\d+)\)/);
+                      return match ? `Día ${match[1]}` : tick;
+                    }}
+                  /> 
                   <YAxis stroke="#555" />
                   <Tooltip 
                     formatter={(value) => [`Tyzys: ${value}`]} 
@@ -507,7 +550,7 @@ function App() {
               <Button 
                 size="lg" 
                 className="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white px-8 py-4 text-lg rounded-full pulse-glow transform hover:scale-105 transition-all duration-300"
-                onClick={() => window.open('https://t.me/pyher_bot', '_blank')}
+                onClick={() => window.open('https://t.me/PySisBot', '_blank')}
               >
                 <Bot className="w-5 h-5 mr-2" />
                 Comenzar Ahora
@@ -641,7 +684,7 @@ function App() {
             <Button 
               variant="ghost" 
               className="text-purple-200 hover:text-white hover:bg-purple-800/50"
-              onClick={() => window.open('https://t.me/pyher_bot', '_blank')}
+              onClick={() => window.open('https://t.me/PySisBot', '_blank')}
             >
               <MessageCircle className="w-5 h-5 mr-2" />
               Telegram
