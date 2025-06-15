@@ -79,7 +79,7 @@ function App() {
     {
       id: 'hardcoded-aleja',
       name: 'Alejandra Rojas (Ingeniera de Machine Learning)',
-      avatarUrl: '/Alcance (2).png', 
+      avatarUrl: 'Mentora_aleja.png', 
       description: 'Alejandra es Ingeniera de Machine Learning y AI, y estudiante de maestría en Inteligencia Artificial. Le apasiona enseñar, compartir conocimiento y aplicar la inteligencia artificial para generar un impacto positivo en el mundo real. Su enfoque combina el desarrollo técnico con un fuerte compromiso por la ética y la transformación social a través de la tecnología, es fundadora de PySys.'
     },
   ];
@@ -97,9 +97,10 @@ function App() {
   const handleSubmitMentorForm = (e) => {
     e.preventDefault();
     console.log("Formulario de mentora enviado:");
-    console.log("Nombre completo:", e.target[0].value);
-    console.log("Correo electrónico:", e.target[1].value);
-    console.log("Descripción:", e.target[2].value);
+    // Acceso a los valores usando e.target.elements.nombreDelCampo.value
+    console.log("Nombre completo:", e.target.elements.nombre.value);
+    console.log("Correo electrónico:", e.target.elements.email.value);
+    console.log("Descripción:", e.target.elements.descripcion.value);
     console.log("Perfil público:", isPublicProfile);
     e.target.reset(); 
     setIsPublicProfile(false); 
@@ -151,22 +152,30 @@ function App() {
             className="max-w-4xl mx-auto"
           >
             <motion.h1 
-              className="text-5xl md:text-7xl font-bold text-gray-900 mb-6 leading-tight"
+              className="text-5xl md:text-7xl font-bold text-gray-900 mb-2 leading-tight" 
               initial={{ opacity: 0, scale: 0.5 }} 
               animate={{ opacity: 1, scale: 1 }} 
               transition={{ duration: 0.8, delay: 0.2 }} 
             >
-              Crea tu camino con{' '} {/* Texto modificado */}
+              Crea tu camino con{' '}
+            </motion.h1>
+            
+            <motion.p
+              className="text-6xl md:text-7xl font-bold text-gray-900 mb-6 leading-tight" 
+              initial={{ opacity: 0, y: 20 }} 
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
               <span className="bg-gradient-to-r from-purple-600 to-fuchsia-600 bg-clip-text text-transparent"> 
                 PySys
               </span>
-            </motion.h1>
-            
+            </motion.p>
+
             <motion.p 
               className="text-xl md:text-2xl text-gray-700 mb-8 leading-relaxed"
               initial={{ opacity: 0 }} 
               animate={{ opacity: 1 }} 
-              transition={{ duration: 0.8, delay: 0.4 }} 
+              transition={{ duration: 0.8, delay: 0.6 }} 
             >
               Tu Aliada Inteligente para Dominar Python
             </motion.p>
@@ -175,7 +184,7 @@ function App() {
               className="text-lg text-gray-600 mb-12 max-w-2xl mx-auto"
               initial={{ opacity: 0 }} 
               animate={{ opacity: 1 }} 
-              transition={{ duration: 0.8, delay: 0.6 }} 
+              transition={{ duration: 0.8, delay: 0.8 }} 
             >
               Una nueva forma de aprender a programar: conversacional, a tu ritmo y siempre disponible para ti en Telegram
             </motion.p> 
@@ -183,7 +192,7 @@ function App() {
             <motion.div
               initial={{ opacity: 0, y: 30 }} 
               animate={{ opacity: 1, y: 0 }} 
-              transition={{ duration: 0.8, delay: 0.8 }} 
+              transition={{ duration: 0.8, delay: 1.0 }} 
             >
               <Button 
                 size="lg" 
@@ -194,20 +203,6 @@ function App() {
                 Hablar con PySis
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
-            </motion.div>
-
-            {/* REINCORPORADA: La motion.div con la imagen y el círculo (contenido) */}
-            <motion.div 
-              className="mt-16 floating-animation"
-              initial={{ opacity: 0 }} 
-              animate={{ opacity: 1 }} 
-              transition={{ duration: 1, delay: 1 }} 
-            >
-              <img  
-                className="mx-auto w-64 h-64 rounded-full shadow-lg bg-white/50 backdrop-blur-md"
-                alt="Interfaz del chatbot PySys AI mostrando una conversación de aprendizaje de Python"
-                src="https://images.unsplash.com/photo-1675023035272-3426884896f8?auto=format&fit=crop&w=256&h=256&q=80"
-              />
             </motion.div>
             
           </motion.div>
@@ -330,7 +325,8 @@ function App() {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
-              className="bg-white/70 backdrop-blur-md p-8 rounded-2xl shadow-lg h-full flex flex-col text-left"
+              className="p-8 rounded-2xl shadow-lg h-full flex flex-col text-left"
+              style={{ backgroundColor: '#E0BBE4' }} 
             >
               <h3 className="text-3xl font-bold text-gray-900 mb-6 text-center">
                 🌸 ¿Qué es Tyzy?
@@ -354,7 +350,8 @@ function App() {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
               viewport={{ once: true }}
-              className="bg-white/70 backdrop-blur-md p-8 rounded-2xl shadow-lg h-full flex flex-col text-left"
+              className="p-8 rounded-2xl shadow-lg h-full flex flex-col text-left"
+              style={{ backgroundColor: '#AEC6CF' }} 
             >
               <h3 className="text-3xl font-bold text-gray-900 mb-6 text-center">
                 🌱 Nuestro propósito contigo
@@ -602,18 +599,21 @@ function App() {
                   placeholder="Nombre completo"
                   className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring focus:ring-purple-400 bg-white text-gray-800"
                   required
+                  name="nombre"
                 />
                 <input
                   type="email"
                   placeholder="Correo electrónico"
                   className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring focus:ring-purple-400 bg-white text-gray-800"
                   required
+                  name="email"
                 />
                 <textarea
                   placeholder="¿Por qué te gustaría ser mentora?"
                   className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring focus:ring-purple-400 bg-white text-gray-800"
                   rows="4"
                   required
+                  name="descripcion"
                 ></textarea>
                 
                 <div className="flex items-center space-x-2 text-gray-700">
