@@ -35,7 +35,9 @@ import {
   Award,
   X, 
   Zap, 
-  Link, 
+  Link,
+  Activity,
+  CalendarDays
 } from 'lucide-react';
 
 function App() {
@@ -43,6 +45,44 @@ function App() {
   const [selectedMentor, setSelectedMentor] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isPublicProfile, setIsPublicProfile] = useState(false);
+  const [lessonPerformanceData, setLessonPerformanceData] = useState([]);
+  const [dailyActivityData, setDailyActivityData] = useState([]);
+  const [activeUsersLast7Days, setActiveUsersLast7Days] = useState(0);
+  const [loadingStats, setLoadingStats] = useState(true);
+  const [errorStats, setErrorStats] = useState(null);
+  const COLORS_PERFORMANCE = ['#6A329F', '#8E44AD', '#BB8FCE', '#D2B4DE'];
+
+  useEffect(() => {
+    const fetchStatsData = async () => {
+      try {
+        setLoadingStats(true); 
+        const [performanceRes, activityRes, activeUsersRes] = await Promise.all([
+          fetch('/api/stats/lesson-performance'),
+          fetch('/api/stats/daily-activity'),
+          fetch('/api/stats/active-users-last-7-days')
+        ]);
+
+        if (!performanceRes.ok || !activityRes.ok || !activeUsersRes.ok) {
+          throw new Error('No se pudieron obtener las estadísticas.');
+        }
+
+        const performanceData = await performanceRes.json();
+        const activityData = await activityRes.json();
+        const activeUsersData = await activeUsersRes.json();
+
+        setLessonPerformanceData(performanceData.map(d => ({ ...d, lesson_day: `Día ${d.lesson_day}` })));
+        setDailyActivityData(activityData.map(d => ({ ...d, date: new Date(d.date).toLocaleDateString('es-ES', { month: 'short', day: 'numeric' }) })));
+        setActiveUsersLast7Days(activeUsersData.active_users_count);
+
+      } catch (err) {
+        setErrorStats(err.message);
+      } finally {
+        setLoadingStats(false);
+      }
+    };
+
+    fetchStatsData();
+  }, []);
 
 
   const nivelAvanceData = [
@@ -386,174 +426,133 @@ function App() {
  
       <div className="section-divider"></div>
  
-      <section id="estadisticas" className="py-20 bg-blue-100"> 
+      <section id="estadisticas" className="py-20 bg-blue-100">
         <div className="container mx-auto px-6">
           <motion.div
-            initial={{ opacity: 0, y: 50 }} 
-            whileInView={{ opacity: 1, y: 0 }} 
-            transition={{ duration: 0.8 }} 
-            viewport={{ once: true }} 
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
             className="text-center mb-16"
           >
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              Panel de Impacto PySis
+              Panel de Impacto PySys
             </h2>
             <p className="text-xl text-gray-700 max-w-2xl mx-auto">
               Descubre el impacto real de PySys en la comunidad de estudiantes de Python
             </p>
           </motion.div>
-          
-          <div className="grid lg:grid-cols-2 gap-8 mb-12">
-            <motion.div
-              initial={{ opacity: 0, x: -50 }} 
-              whileInView={{ opacity: 1, x: 0 }} 
-              transition={{ duration: 0.8 }} 
-              viewport={{ once: true }} 
-              className="chart-container bg-blue-50 p-8 rounded-2xl shadow-lg flex flex-col items-center justify-center"> 
-              <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
-                <BarChart3 className="w-6 h-6 mr-3 text-purple-600" />
-                Distribución por nivel de avance
-              </h3>
-              <ResponsiveContainer width="100%" height={300}>
-                <BarChart layout="vertical" data={nivelAvanceData} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
-                  <YAxis 
-                    dataKey="name" 
-                    type="category" 
-                    stroke="#555" 
-                    width={100} 
-                    tickFormatter={(tick) => {
-                      const match = tick.match(/\(Día\s(\d+–\d+)\)/);
-                      return match ? `Día ${match[1]}` : tick;
-                    }}
-                  /> 
-                  <XAxis 
-                    dataKey="value" 
-                    type="number" 
-                    stroke="#555" 
-                    label={{ value: 'Tyzys', position: 'insideBottomRight', offset: 0, fill: '#555' }} 
-                  />
-                  <Tooltip 
-                    formatter={(value) => [`Tyzys: ${value}`]} 
-                    labelFormatter={(label) => label} 
-                  />
-                  <Legend />
-                  <Bar dataKey="value" fill="#6A329F"> 
-                    {
-                      nivelAvanceData.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={COLORS_NIVEL_AVANCE[index % COLORS_NIVEL_AVANCE.length]} />
-                      ))
-                    }
-                  </Bar>
-                </BarChart>
-              </ResponsiveContainer>
-            </motion.div>
-            
-            <motion.div
-              initial={{ opacity: 0, x: 50 }} 
-              whileInView={{ opacity: 1, x: 0 }} 
-              transition={{ duration: 0.8, delay: 0.2 }} 
-              viewport={{ once: true }} 
-              className="chart-container bg-blue-50 p-8 rounded-2xl shadow-lg flex flex-col items-center justify-center"
-            >
-              <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
-                <TrendingUp className="w-6 h-6 mr-3 text-purple-600" />
-                Porcentaje de constancia
-              </h3>
-              <ResponsiveContainer width="100%" height={300}>
-                <PieChart>
-                  <Pie
-                    data={constanciaData}
-                    dataKey="value"
-                    nameKey="name"
-                    cx="50%"
-                    cy="50%"
-                    innerRadius={60} 
-                    outerRadius={100}
-                    fill="#6A329F" 
-                    labelLine={false}
-                    label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-                  >
-                    {constanciaData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={COLORS_CONSTANCIA[index % COLORS_CONSTANCIA.length]} />
-                    ))}
-                  </Pie>
-                  <Tooltip 
-                    formatter={(value) => [`${value}%`, 'Porcentaje']} 
-                  /> 
-                  <Legend />
-                </PieChart>
-              </ResponsiveContainer>
-            </motion.div>
-          </div>
-          
-          <div className="grid lg:grid-cols-2 gap-8">
-            <motion.div
-              initial={{ opacity: 0, y: 50 }} 
-              whileInView={{ opacity: 1, y: 0 }} 
-              transition={{ duration: 0.8, delay: 0.4 }} 
-              viewport={{ once: true }} 
-              className="chart-container bg-blue-50 p-8 rounded-2xl shadow-lg flex flex-col items-center justify-center text-center"
-            >
-              <h3 className="text-2xl font-bold text-gray-900 mb-4 flex items-center justify-center">
-                <Zap className="w-8 h-8 mr-3 text-yellow-500" />
-                Aprendices activas hoy
-              </h3>
-              <motion.div
-                initial={{ scale: 0.8, opacity: 0 }} 
-                animate={{ scale: 1, opacity: 1 }} 
-                transition={{ duration: 0.5, delay: 0.6 }} 
-                className="text-6xl font-extrabold text-purple-700 mt-4 mb-2 counting-animation"
-              >
-                {aprendicesActivasHoy}
-              </motion.div>
-              <p className="text-gray-600 text-lg">Tyzys usando PySys en las últimas 24 horas.</p>
-            </motion.div>
 
-            <motion.div
+          {loadingStats ? (
+            <div className="text-center text-purple-700">Cargando estadísticas...</div>
+          ) : errorStats ? (
+            <div className="text-center text-red-500">Error: {errorStats}</div>
+          ) : (
+            <>
+              <div className="grid lg:grid-cols-2 gap-8 mb-12">
+                <motion.div
+                  initial={{ opacity: 0, x: -50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.8 }}
+                  viewport={{ once: true }}
+                  className="chart-container bg-blue-50 p-8 rounded-2xl shadow-lg flex flex-col items-center justify-center"
+                >
+                  <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+                    <BarChart3 className="w-6 h-6 mr-3 text-purple-600" />
+                    Rendimiento Promedio por Lección
+                  </h3>
+                  <ResponsiveContainer width="100%" height={300}>
+                    <BarChart data={lessonPerformanceData} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
+                      <YAxis stroke="#555" dataKey="average_score" />
+                      <XAxis dataKey="lesson_day" stroke="#555" />
+                      <Tooltip 
+                        formatter={(value) => [`${value.toFixed(2)}`, 'Promedio']}
+                        labelFormatter={(label) => label}
+                      />
+                      <Legend />
+                      <Bar dataKey="average_score" name="Puntaje Promedio">
+                        {lessonPerformanceData.map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={COLORS_PERFORMANCE[index % COLORS_PERFORMANCE.length]} />
+                        ))}
+                      </Bar>
+                    </BarChart>
+                  </ResponsiveContainer>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, x: 50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                  viewport={{ once: true }}
+                  className="chart-container bg-blue-50 p-8 rounded-2xl shadow-lg flex flex-col items-center justify-center"
+                >
+                  <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+                    <Activity className="w-6 h-6 mr-3 text-purple-600" />
+                    Actividad Diaria de Usuarias
+                  </h3>
+                  <ResponsiveContainer width="100%" height={300}>
+                    <LineChart data={dailyActivityData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                      <XAxis dataKey="date" stroke="#555" />
+                      <YAxis stroke="#555" />
+                      <Tooltip 
+                        formatter={(value) => [`${value}`, 'Usuarias Activas']}
+                        labelFormatter={(label) => `Fecha: ${label}`}
+                      />
+                      <Legend />
+                      <Line type="monotone" dataKey="active_users" name="Usuarias Activas" stroke="#6A329F" activeDot={{ r: 8 }} strokeWidth={2} />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </motion.div>
+              </div>
+
+              <div className="grid lg:grid-cols-1 gap-8">
+                <motion.div
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.4 }}
+                  viewport={{ once: true }}
+                  className="chart-container bg-blue-50 p-8 rounded-2xl shadow-lg flex flex-col items-center justify-center text-center"
+                >
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4 flex items-center justify-center">
+                    <CalendarDays className="w-8 h-8 mr-3 text-yellow-500" />
+                    Aprendices Activas
+                  </h3>
+                  <motion.div
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ duration: 0.5, delay: 0.6 }}
+                    className="text-6xl font-extrabold text-purple-700 mt-4 mb-2 counting-animation"
+                  >
+                    {activeUsersLast7Days}
+                  </motion.div>
+                  <p className="text-gray-600 text-lg">Tyzys usando PySys en los últimos 7 días.</p>
+                </motion.div>
+              </div>
+            </>
+          )}
+
+          <motion.div
               initial={{ opacity: 0, y: 50 }} 
               whileInView={{ opacity: 1, y: 0 }} 
-              transition={{ duration: 0.8, delay: 0.6 }} 
+              transition={{ duration: 0.8, delay: 0.8 }} 
               viewport={{ once: true }} 
-              className="chart-container bg-blue-50 p-8 rounded-2xl shadow-lg flex flex-col items-center justify-center"
-            >
-              <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
-                <Link className="w-6 h-6 mr-3 text-blue-600" />
-                Conexiones Tyzy–Mentora
-              </h3>
-              <ResponsiveContainer width="100%" height={300}>
-                <LineChart data={conexionesData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-                  <XAxis dataKey="semana" stroke="#555" />
-                  <YAxis stroke="#555" />
-                  <Tooltip formatter={(value) => [`Tyzys: ${value}`]} /> 
-                  <Legend />
-                  <Line type="monotone" dataKey="conexiones" stroke="#6A329F" activeDot={{ r: 8 }} strokeWidth={2} />
-                </LineChart>
-              </ResponsiveContainer>
-            </motion.div>
-          </div>
-          
-          <motion.div
-            initial={{ opacity: 0, y: 50 }} 
-            whileInView={{ opacity: 1, y: 0 }} 
-            transition={{ duration: 0.8, delay: 0.8 }} 
-            viewport={{ once: true }} 
-            className="mt-16 text-center"
+              className="mt-16 text-center"
           >
             <div className="bg-white/70 backdrop-blur-md p-8 rounded-2xl shadow-lg">
               <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                ¿Listo para unirte a nuestra comunidad?
+                  ¿Lista para unirte a nuestra comunidad?
               </h3>
               <p className="text-gray-600 mb-6">
-                Más de 500 Tyzys ya están aprendiendo Python con PySys. ¡Sé el próximo en dominar la programación!
+                  Más de 500 Tyzys ya están aprendiendo Python con PySys. ¡Sé la próxima en dominar la programación!
               </p>
               <Button 
-                size="lg" 
-                className="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white px-8 py-4 text-lg rounded-full pulse-glow transform hover:scale-105 transition-all duration-300"
-                onClick={() => window.open('https://t.me/PySisBot', '_blank')}
+                  size="lg" 
+                  className="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white px-8 py-4 text-lg rounded-full pulse-glow transform hover:scale-105 transition-all duration-300"
+                  onClick={() => window.open('https://t.me/PySisBot', '_blank')}
               >
-                <Bot className="w-5 h-5 mr-2" />
-                Comenzar Ahora
-                <ArrowRight className="w-5 h-5 ml-2" />
+                  <Bot className="w-5 h-5 mr-2" />
+                  Comenzar Ahora
+                  <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
             </div>
           </motion.div>
