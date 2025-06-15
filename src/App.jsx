@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion'; 
 import { Button } from '@/components/ui/button';
@@ -97,6 +98,7 @@ function App() {
   const handleSubmitMentorForm = (e) => {
     e.preventDefault();
     console.log("Formulario de mentora enviado:");
+    // Acceso a los valores usando e.target.elements.nombreDelCampo.value
     console.log("Nombre completo:", e.target.elements.nombre.value);
     console.log("Correo electrónico:", e.target.elements.email.value);
     console.log("Descripción:", e.target.elements.descripcion.value);
@@ -166,7 +168,7 @@ function App() {
               transition={{ duration: 0.8, delay: 0.4 }}
             >
               <span className="bg-gradient-to-r from-purple-600 to-fuchsia-600 bg-clip-text text-transparent"> 
-                PySys
+              PySys
               </span>
             </motion.p>
 
@@ -176,7 +178,7 @@ function App() {
               animate={{ opacity: 1 }} 
               transition={{ duration: 0.8, delay: 0.6 }} 
             >
-              Tu Aliada Inteligente para Dominar Python
+              Tu aliada inteligente para dominar el mundo Tech
             </motion.p>
             
             <motion.p 
@@ -289,7 +291,7 @@ function App() {
           >
             <div className="bg-purple-50 backdrop-blur-md p-8 rounded-2xl text-center shadow-lg"> 
               <Code className="w-16 h-16 text-blue-500 mx-auto mb-6" />
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Aprendizaje Interactivo</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-4">Aprendizaje interactivo</h3>
               <p className="text-gray-600">
                 Conversaciones naturales que hacen que aprender Python sea tan fácil como chatear con un amigo
               </p>
@@ -305,7 +307,7 @@ function App() {
             
             <div className="bg-purple-50 backdrop-blur-md p-8 rounded-2xl text-center shadow-lg"> 
               <TrendingUp className="w-16 h-16 text-yellow-500 mx-auto mb-6" />
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Progreso Visible</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-4">Progreso visible</h3>
               <p className="text-gray-600">
                 Seguimiento detallado de tu progreso con métricas claras y motivadoras
               </p>
@@ -584,7 +586,7 @@ function App() {
               className="bg-purple-50 p-8 rounded-2xl shadow-lg" 
             >
               <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                ¿Quieres ser Mentora?
+                ¿Quieres ser mentora?
               </h3>
               <p className="text-gray-700 mb-6">
                 Deja tus datos para que podamos contactarte y contarte más sobre esta linda comunidad.

@@ -92,7 +92,7 @@ const Ranking = () => {
   }
 
   return (
-    <section id="ranking" className="py-20">
+    <section id="ranking" className="py-20 bg-primary">
       <div className="container mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -102,7 +102,7 @@ const Ranking = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Ranking de Estudiantes
+            Ranking de Tyzys
           </h2>
           <p className="text-xl text-purple-200 max-w-2xl mx-auto">
             Mira quiénes lideran nuestra comunidad de aprendizaje.
