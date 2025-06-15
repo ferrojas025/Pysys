@@ -50,7 +50,7 @@ export default defineConfig({
         // --- AÑADIDO: Configuración del Proxy ---
         proxy: {
             '/api': {
-                target: 'http://localhost:8004',
+                target: 'http://34.61.5.142:8004',
                 changeOrigin: true,
                 rewrite: (path) => path.replace(/^\/api/, '')
             }
